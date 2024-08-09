@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Professionnel - Eduplex</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
+             class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-blue-600 lg:translate-x-0 lg:static lg:inset-0">
+            <div class="flex items-center justify-center mt-8">
+                <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-2xl text-white"></i>
+                    <span class="mx-2 text-2xl font-semibold text-white">Eduplex</span>
+                </div>
+            </div>
+
+            <nav class="mt-10">
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-blue-700 bg-opacity-25" href="#dashboard">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 hover:bg-blue-700 hover:bg-opacity-25" href="#courses">
+                    <i class="fas fa-book mr-3"></i>
+                    <span>Mes Cours</span>
+                </a>
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 hover:bg-blue-700 hover:bg-opacity-25" href="#calendar">
+                    <i class="fas fa-calendar-alt mr-3"></i>
+                    <span>Calendrier</span>
+                </a>
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 hover:bg-blue-700 hover:bg-opacity-25" href="#messages">
+                    <i class="fas fa-envelope mr-3"></i>
+                    <span>Messages</span>
+                </a>
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 hover:bg-blue-700 hover:bg-opacity-25" href="#community">
+                    <i class="fas fa-users mr-3"></i>
+                    <span>Communauté</span>
+                </a>
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 hover:bg-blue-700 hover:bg-opacity-25" href="#analytics">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    <span>Analytique</span>
+                </a>
+                <a class="flex items-center px-6 py-2 mt-4 text-gray-100 hover:bg-blue-700 hover:bg-opacity-25" href="#settings">
+                    <i class="fas fa-cog mr-3"></i>
+                    <span>Paramètres</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Content area -->
+        <div class="flex flex-col flex-1 overflow-hidden">
+            <header class="flex items-center justify-between px-6 py-4 bg-white shadow-md">
+                <div class="flex items-center">
+                    <button @click="sidebarOpen = !sidebarOpen" class="text-gray-500 focus:outline-none lg:hidden">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <div class="flex items-center">
+                    <div class="relative mr-4">
+                        <input type="text" class="w-full px-4 py-2 text-gray-800 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Rechercher...">
+                        <button class="absolute right-0 top-0 mt-3 mr-4">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </button>
+                    </div>
+                    <button class="flex items-center text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="ml-2 text-sm font-medium">3</span>
+                    </button>
+                    <div class="relative ml-4">
+                        <button class="flex items-center focus:outline-none">
+                            <img class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User avatar">
+                            <span class="ml-2 text-sm font-medium">Taylor Doe</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+                <div class="container mx-auto px-6 py-8">
+                    <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
+                    
+                    <div class="mt-8">
+                        <div class="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
+                            <div class="w-full px-4 py-5 bg-white rounded-lg shadow">
+                                <div class="text-sm font-medium text-gray-500 truncate">
+                                    Cours Actifs
+                                </div>
+                                <div class="mt-1 text-3xl font-semibold text-gray-900">
+                                    5
+                                </div>
+                            </div>
+                            <div class="w-full px-4 py-5 bg-white rounded-lg shadow">
+                                <div class="text-sm font-medium text-gray-500 truncate">
+                                    Heures d'Étude Cette Semaine
+                                </div>
+                                <div class="mt-1 text-3xl font-semibold text-gray-900">
+                                    22.5
+                                </div>
+                            </div>
+                            <div class="w-full px-4 py-5 bg-white rounded-lg shadow">
+                                <div class="text-sm font-medium text-gray-500 truncate">
+                                    Progression Globale
+                                </div>
+                                <div class="mt-1 text-3xl font-semibold text-gray-900">
+                                    68%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h4 class="text-xl font-semibold mb-4">Activité Hebdomadaire</h4>
+                            <div id="activity-chart"></div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h4 class="text-xl font-semibold mb-4">Progression des Cours</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-base font-medium text-blue-700">3D Design</span>
+                                        <span class="text-sm font-medium text-blue-700">45%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-base font-medium text-blue-700">Web Development</span>
+                                        <span class="text-sm font-medium text-blue-700">75%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-base font-medium text-blue-700">Data Science</span>
+                                        <span class="text-sm font-medium text-blue-700">60%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h4 class="text-xl font-semibold mb-4">Prochains Événements</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                                    <span>Examen de Web Dev - 15 Août</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                                    <span>Webinaire Data Science - 18 Août</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                                    <span>Rendu Projet 3D - 20 Août</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h4 class="text-xl font-semibold mb-4">Messages Récents</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <img class="w-10 h-10 rounded-full mr-3" src="https://randomuser.me/api/portraits/women/12.jpg" alt="User avatar">
+                                    <div>
+                                        <p class="font-semibold">Sarah Connor</p>
+                                        <p class="text-sm text-gray-500">Question sur le projet...</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <img class="w-10 h-10 rounded-full mr-3" src="https://randomuser.me/api/portraits/men/22.jpg" alt="User avatar">
+                                    <div>
+                                        <p class="font-semibold">John Doe</p>
+                                        <p class="text-sm text-gray-500">Merci pour le feedback...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h4 class="text-xl font-semibold mb-4">Ressources Recommandées</h4>
+                            <ul class="space-y-2">
+                                <li>
+                                    <a href="#" class="text-blue-600 hover:underline">Guide avancé de React</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-blue-600 hover:underline">Tutoriel Blender pour débutants</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-blue-600 hover:underline">Introduction à Machine Learning</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        var options = {
+            chart: {
+                type: 'area',
+                height: 250,
+                toolbar: {
+                    show: false
+                }
+            },
+            series: [{
+                name: 'Heures étudiées',
+                data: [3, 4, 2, 5, 6, 3, 4]
+            }],
+            xaxis: {
+                categories: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
+            },
+            colors: ['#3B82F6'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.3,
+                    stops: [0, 90, 100]
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#activity-chart"), options);
+        chart.render();
+    </script>
+</body>
+</html>
